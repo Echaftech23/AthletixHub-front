@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button"
+import React from "react";
+import AppRouter from "./router";
+import { AuthProvider } from "./contexts/auth/AuthProvider";
 
-export default function Home() {
-  return (
-    <div>
-      <Button>Click me</Button>
-    </div>
-  )
-}
+const App: React.FC = () => (
+  <AuthProvider>
+    <AppRouter />
+  </AuthProvider>
+);
+
+export default App;
