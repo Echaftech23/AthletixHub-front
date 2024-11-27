@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 const LoginForm = lazy(() => import("@/components/auth/LoginForm"));
 const RegisterForm = lazy(() => import("@/components/auth/RegisterForm"));
 const ProtectedRoute = lazy(() => import("@/components/auth/ProtectedRoute"));
+const DashboardPage = lazy(() => import("@/pages/organiser"));
 
 const AppRouter = () => (
   <Router>
@@ -15,7 +16,7 @@ const AppRouter = () => (
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <h1 className="bg-red-600 text-white">Dashboard</h1>
+              <DashboardPage />
             </ProtectedRoute>
           }
         />

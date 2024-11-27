@@ -17,3 +17,22 @@ export interface RegisterDto {
     email: string;
     password: string;
 }
+
+export type OrderStatus = 'ready' | 'in-progress' | 'completed';
+
+export interface OrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Order {
+  id: string;
+  customerName: string;
+  customerInitials: string;
+  status: OrderStatus;
+  time: string;
+  items: OrderItem[];
+  total: number;
+  additionalItems: number;
+}
