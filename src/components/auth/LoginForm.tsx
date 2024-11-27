@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from "@/hooks/useAuth";
-import {  useNavigate } from 'react-router-dom';
+import {  Link, useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
   const { login } = useAuth();
@@ -131,6 +131,29 @@ const LoginForm: React.FC = () => {
                   )}
                 </div>
 
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Input
+                      id="rememberMe"
+                      name="rememberMe"
+                      type="checkbox"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-900">
+                      Remember me
+                    </label>
+                  </div>
+              
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
+
                 {/* Submit Button */}
                 <Button
                   type="submit"
@@ -142,6 +165,18 @@ const LoginForm: React.FC = () => {
               </form>
             )}
           </Formik>
+
+          <div className="text-center m-3">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Sign up
+              </Link>
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>
