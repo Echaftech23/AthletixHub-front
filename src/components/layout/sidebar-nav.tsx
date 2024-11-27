@@ -9,9 +9,10 @@ interface NavItem {
 
 interface SidebarNavProps {
   items: NavItem[];
+  isOpen: boolean;
 }
 
-export function SidebarNav({ items }: SidebarNavProps) {
+export function SidebarNav({ items, isOpen }: SidebarNavProps) {
   return (
     <nav className="mt-8">
       <ul className="space-y-2">
@@ -20,13 +21,11 @@ export function SidebarNav({ items }: SidebarNavProps) {
             <a
               href="#"
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                item.active
-                  ? 'bg-white/10'
-                  : 'hover:bg-white/5'
+                item.active ? 'bg-white/10' : 'hover:bg-white/5'
               }`}
             >
               <item.icon className="h-5 w-5" />
-              <span>{item.label}</span>
+              {isOpen && <span>{item.label}</span>}
             </a>
           </li>
         ))}
