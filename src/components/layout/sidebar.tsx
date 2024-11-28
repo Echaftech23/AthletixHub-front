@@ -3,18 +3,23 @@ import { LayoutDashboard, Calendar, Users, FileText, Settings, Menu } from 'luci
 import { SidebarNav } from './sidebar-nav';
 
 const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', active: true },
-  { icon: Calendar, label: 'Events' },
-  { icon: Users, label: 'Particapants' },
-  { icon: FileText, label: 'Documents' },
-  { icon: Settings, label: 'Settings' },
+  { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
+  { icon: Calendar, label: 'Events', path: '/events' },
+  { icon: Users, label: 'Participants', path: '/participants' },
+  { icon: FileText, label: 'Documents', path: '/documents' },
+  { icon: Settings, label: 'Settings', path: '/settings' },
 ];
 
 export function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState(menuItems[0].path);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleItemClick = (path: string) => {
+    setActiveItem(path);
   };
 
   return (
@@ -23,9 +28,9 @@ export function Sidebar() {
         <button onClick={toggleSidebar}>
           <Menu className="h-6 w-6 mt-1 cursor-pointer" />
         </button>
-        {isSidebarOpen && <span className="text-xl font-bold">ElaAdmin</span>}
+        {isSidebarOpen && <span className="text-xl font-bold">Event-fit</span>}
       </div>
-      <SidebarNav items={menuItems} isOpen={isSidebarOpen} />
+      <SidebarNav items={menuItems} isOpen={isSidebarOpen} activeItem={activeItem} onItemClick={handleItemClick} />
     </div>
   );
 }
