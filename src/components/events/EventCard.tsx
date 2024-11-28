@@ -1,6 +1,5 @@
 import { Event } from '@/types/events';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 
 interface EventCardProps {
@@ -9,18 +8,13 @@ interface EventCardProps {
 
 export function EventCard({ event }: EventCardProps) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden rounded-md">
       <div className="relative">
         <img 
           src={event.imageUrl} 
           alt={event.title} 
           className="w-full h-48 object-cover"
         />
-        {event.status === 'sold-out' && (
-          <div className="absolute top-4 right-4">
-            <Badge variant="destructive">SOLD OUT</Badge>
-          </div>
-        )}
       </div>
       
       <div className="p-4">
@@ -41,15 +35,20 @@ export function EventCard({ event }: EventCardProps) {
           </div>
         </div>
         
-        <div className="mt-4">
-          <button
-            className="w-full py-2 px-4 bg-primary text-white rounded-md hover:bg-primary/90 disabled:opacity-50"
-            disabled={event.status === 'closed' || event.status === 'sold-out'}
-          >
-            {event.status === 'closed' ? 'Ticket Office Closed' : 
-             event.status === 'sold-out' ? 'Sold Out' : 
-             'Buy Tickets'}
-          </button>
+        <div className="mt-4 space-y-3">
+          <div className="flex space-x-3">
+            <button
+              className="w-full py-2 px-4 bg-green-300 font-semibold rounded-sm hover:bg-green-400"
+            >
+              Edit Event
+            </button>
+
+            <button
+              className="w-full py-2 px-4 bg-primary text-white rounded-sm hover:bg-primary/90"
+            >
+              Delete Event
+            </button>
+          </div>
         </div>
       </div>
     </Card>

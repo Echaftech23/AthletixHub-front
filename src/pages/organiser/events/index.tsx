@@ -5,8 +5,8 @@ import { EventGrid } from '@/components/events/EventGrid';
 const dashboard = () => {
   return (
     <MainLayout>
-      <DashboardHeader title="Dashboard" subtitle="Welcome back to your dashboard" />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <DashboardHeader title="Dashboard" subtitle="Welcome back to your dashboard" buttonText="Event" />
+      <main className="max-w-7xl mx-auto pb-8">
         <EventGrid />
       </main>
     </MainLayout>
