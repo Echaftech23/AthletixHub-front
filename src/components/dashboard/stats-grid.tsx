@@ -1,5 +1,5 @@
 import { DollarSign, ShoppingCart, FileText, Users } from 'lucide-react';
-import { StatsCard } from '../stats-card';
+import { StatsCard } from './stats-card';
 
 export function StatsGrid() {
   return (
