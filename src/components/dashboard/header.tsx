@@ -1,4 +1,4 @@
-import { Modal } from '@/components/ui/popover';
+import { Modal } from '@/components/events/popover';
 import { EventForm } from '@/components/events/EventForm';
 import { ParticipantForm } from '@/components/participants/ParticipantForm';
 

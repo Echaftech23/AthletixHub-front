@@ -1,3 +1,4 @@
+import Loader from "@/components/ui/loader";
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -9,7 +10,9 @@ const Events = lazy(() => import("@/pages/organiser/events"));
 
 const AppRouter = () => (
   <Router>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className='h-screen flex items-center justify-center'>
+      <Loader />
+    </div>}>
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
