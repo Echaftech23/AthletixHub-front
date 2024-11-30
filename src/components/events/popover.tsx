@@ -1,14 +1,13 @@
-import  { useState, ReactNode } from "react";
+import { useState, ReactNode } from "react";
 import { FaCirclePlus, FaXmark } from "react-icons/fa6";
-import { Formik, FormikHelpers } from "formik";
+import { Formik } from "formik";
 import { EventDto } from "@/types";
 import { eventValidationSchema } from "@/validations/EventValidation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle } from "lucide-react";
 import { useEvents } from "@/hooks/useEvents";
+import { toast } from "sonner";
 
 interface ModalProps {
   trigger?: ReactNode;
@@ -17,15 +16,17 @@ interface ModalProps {
   onEventCreated: (event: EventDto) => void;
 }
 
-export function Modal({ trigger, title, buttonText, onEventCreated }: ModalProps) {
+export function Modal({
+  trigger,
+  title,
+  buttonText,
+  onEventCreated,
+}: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { createEvent } = useEvents();
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
-  const { createEvent, loading } = useEvents();
-  const [success, setSuccess] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const initialValues: EventDto = {
     title: "",
@@ -39,34 +40,18 @@ export function Modal({ trigger, title, buttonText, onEventCreated }: ModalProps
     price: 0,
     capacity: 0,
     imageUrl: "",
-    id: undefined
+    id: undefined,
   };
 
-  const handleSubmit = async (
-    values: EventDto,
-    { setSubmitting }: FormikHelpers<EventDto>
-  ) => {
+  const handleSubmit = async (values: EventDto) => {
     try {
       const newEvent = await createEvent(values);
-      setSuccess("Event created successfully!");
       onEventCreated(newEvent);
-
-      setTimeout(() => {
-        closeModal();
-        setSuccess(null);
-      }, 2000);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error("Failed to create event.", error);
-      const errorMessage =
-        error.response?.data?.message || "An error occurred";
-      setError(
-        typeof errorMessage === "string"
-          ? errorMessage
-          : JSON.stringify(errorMessage)
-      );
-    } finally {
-      setSubmitting(false);
+      setIsOpen(false);
+      toast.success("Event created successfully!");
+    } catch (error) {
+      console.error("Failed to create event:", error);
+      toast.error("Failed to create event. Please try again later.");
     }
   };
 
@@ -118,22 +103,6 @@ export function Modal({ trigger, title, buttonText, onEventCreated }: ModalProps
                   isSubmitting,
                 }) => (
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    {error && (
-                      <Alert variant="destructive">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertTitle>Event Creation Error</AlertTitle>
-                        <AlertDescription>{error}</AlertDescription>
-                      </Alert>
-                    )}
-
-                    {success && (
-                      <Alert variant="success">
-                        <CheckCircle className="h-4 w-4" />
-                        <AlertTitle>Success</AlertTitle>
-                        <AlertDescription>{success}</AlertDescription>
-                      </Alert>
-                    )}
-
                     {/* Title Input */}
                     <div>
                       <Input
@@ -182,6 +151,7 @@ export function Modal({ trigger, title, buttonText, onEventCreated }: ModalProps
                           type="date"
                           name="date"
                           placeholder="Event Date"
+                          min={new Date().toISOString().split("T")[0]}
                           value={values.date}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -334,10 +304,10 @@ export function Modal({ trigger, title, buttonText, onEventCreated }: ModalProps
                     {/* Submit Button */}
                     <Button
                       type="submit"
-                      disabled={isSubmitting || loading}
+                      disabled={isSubmitting}
                       className="w-full bg-black text-white hover:bg-gray-800"
                     >
-                      {isSubmitting || loading ? "Creating..." : "Create Event"}
+                      {isSubmitting ? "Creating..." : "Create Event"}
                     </Button>
                   </form>
                 )}

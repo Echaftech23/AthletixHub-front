@@ -6,17 +6,23 @@ interface EventGridProps {
   loading: boolean;
   error: string | null;
   onEventDeleted: (deletedEventId: string) => void;
+  onEventEdited: (event: EventDto) => void;
 }
 
-export function EventGrid({ events, onEventDeleted }: EventGridProps) {
+export function EventGrid({ events, onEventDeleted, onEventEdited }: EventGridProps) {
   if (!events.length) {
-    return <p>No events available.</p>;
+    return <p className="flex items-center justify-center h-[70svh]">No events available.</p>;
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {events.map((event) => (
-      <EventCard key={event._id?.toString()} event={event} onEventDeleted={onEventDeleted} />
+        <EventCard 
+          key={String(event._id)} 
+          event={event} 
+          onEventDeleted={onEventDeleted} 
+          onEventEdited={onEventEdited}
+        />
       ))}
     </div>
   );
