@@ -1,6 +1,6 @@
 import { RegisterDto } from '@/types';
 import React, { useState } from 'react';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik } from 'formik';
 import { RegisterSchema } from '@/validations/RegisterValidation';
 import { 
   Card, 
@@ -11,15 +11,15 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth } from "@/hooks/useAuth";
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const RegisterForm: React.FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
   const initialValues: RegisterDto = {
     username: '',
@@ -28,21 +28,17 @@ const RegisterForm: React.FC = () => {
     password: ''
   };
 
-  const handleSubmit = async (
-    values: RegisterDto, 
-    { setSubmitting }: FormikHelpers<RegisterDto>
-  ) => {
+  const handleSubmit = async ( values: RegisterDto ) => {
     try {
       await register(values);
-      setSuccess("Registered successfully!");
-
+      toast.success("Registered successfully!");
       setTimeout(() => {
         navigate("/login", { replace: true });
       }, 2000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log("Failed to register. Please check the data.", error);
-      const errorMessage = error.response?.data?.message?.message[0] || "Failed to register. Please try again.";
+      const errorMessage = error.response?.data?.message?.message || "Failed to register. Please try again.";
       setError(typeof errorMessage === 'string' ? errorMessage : JSON.stringify(errorMessage));
     } finally {
       setSubmitting(false);
@@ -88,14 +84,6 @@ const RegisterForm: React.FC = () => {
                     <AlertCircle className="h-4 w-4" />
                     <AlertTitle>Registration Error</AlertTitle>
                     <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-
-                {success && (
-                  <Alert variant="success">
-                    <CheckCircle className="h-4 w-4" />
-                    <AlertTitle>Success</AlertTitle>
-                    <AlertDescription>{success}</AlertDescription>
                   </Alert>
                 )}
 
@@ -193,7 +181,14 @@ const RegisterForm: React.FC = () => {
                   disabled={isSubmitting}
                   className="w-full bg-black text-white hover:bg-gray-800"
                 >
-                  {isSubmitting ? 'Registering...' : 'Register'}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <span>Registering...</span>
+                    </>
+                  ) : (
+                    'Register'
+                  )}
                 </Button>
               </form>
             )}

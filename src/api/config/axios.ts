@@ -33,12 +33,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors, e.g., token expiration, logging out the user, etc.
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('authUser');
-      window.location.href = '/login';
-    }
     console.error('Axios Response error:', error);
     return Promise.reject(error);
   }

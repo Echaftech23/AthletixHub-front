@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 // src/types/index.ts
 export interface User {
     id: string;
@@ -35,4 +37,19 @@ export interface Order {
   items: OrderItem[];
   total: number;
   additionalItems: number;
+}
+
+export interface EventDto {
+  _id: ReactNode;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  address: {
+    venue: string;
+    location: string;
+  };
+  price: number;
+  capacity: number;
+  imageUrl: string;
 }
