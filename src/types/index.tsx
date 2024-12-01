@@ -61,3 +61,11 @@ export interface ParticipantDto {
   phone: string;
   eventId: string;
 }
+
+
+export interface UpdateParticipantDto {
+  _id: ReactNode;
+  username?: string;
+  email?: string;
+  phone?: string;
+}
