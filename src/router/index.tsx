@@ -7,6 +7,7 @@ const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"));
 const AuthGuard = lazy(() => import("@/guards/AuthGuard"));
 const DashboardPage = lazy(() => import("@/pages/organiser"));
 const Events = lazy(() => import("@/pages/organiser/events"));
+const Participants = lazy(() => import("@/pages/organiser/participants"));
 
 const AppRouter = () => (
   <Router>
@@ -22,6 +23,7 @@ const AppRouter = () => (
         //Protected routes
         <Route path="/dashboard" element={<AuthGuard><DashboardPage /></AuthGuard>}/>
         <Route path="/events" element={<AuthGuard><Events /></AuthGuard>}/>
+        <Route path="/participants" element={<AuthGuard><Participants /></AuthGuard>}/>
       </Routes>
     </Suspense>
   </Router>

@@ -45,7 +45,6 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
     <Card className="w-full max-w-md bg-white text-black">
       <CardHeader>
         <CardTitle className="text-center text-2xl font-bold">
@@ -174,7 +173,6 @@ const LoginForm: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
   );
 };
 

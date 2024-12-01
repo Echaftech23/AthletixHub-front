@@ -53,3 +53,11 @@ export interface EventDto {
   capacity: number;
   imageUrl: string;
 }
+
+export interface ParticipantDto {
+  _id: ReactNode;
+  username: string;
+  email: string;
+  phone: string;
+  eventId: string;
+}
