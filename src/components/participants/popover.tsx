@@ -6,7 +6,6 @@ import { participantValidationSchema } from "@/validations/participantValidation
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEvents } from "@/hooks/useEvents";
-import * as React from "react";
 import {
   Select,
   SelectContent,
@@ -67,7 +66,7 @@ export function Modal({
       console.log("Submitting Participant Full Values:", values);
 
       const newParticipant = await createParticipant(values);
-      console.log("API Response:", newParticipant); // Log the API response
+      console.log("API Response:", newParticipant);
 
       onParticipantCreated(newParticipant);
       setIsOpen(false);
@@ -251,11 +250,6 @@ export function Modal({
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      onClick={(e) => {
-                        console.log("Button clicked", values); // Add this line
-                        // Prevent default to ensure Formik handles submission
-                        // e.preventDefault();
-                      }}
                       className="w-full bg-black text-white hover:bg-gray-800"
                     >
                       {isSubmitting ? "Creating..." : "Create Participant"}

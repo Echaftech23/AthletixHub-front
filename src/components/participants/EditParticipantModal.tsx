@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { UpdateparticipantValidationSchema } from "@/validations/participantValidation";
 import { Formik, Form, Field } from 'formik';
+import { toast } from "sonner";
 import { useParticipants } from "@/hooks/useParticipants";
 
 interface EditParticipantModalProps {
@@ -42,6 +43,8 @@ const EditParticipantModal: React.FC<EditParticipantModalProps> = ({ participant
             try {
               await updateParticipant(participant._id, values);
               onSubmit(values);
+              onClose();
+              toast.success('Participant updated successfully');
             } catch (error) {
               console.error('Failed to update participant', error);
             } finally {
