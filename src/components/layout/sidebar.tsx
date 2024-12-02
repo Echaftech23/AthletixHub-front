@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, Calendar, Users, FileText, Settings, Menu } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, Settings, Menu } from 'lucide-react';
 import { SidebarNav } from './sidebar-nav';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
   { icon: Calendar, label: 'Events', path: '/events' },
   { icon: Users, label: 'Participants', path: '/participants' },
-  { icon: FileText, label: 'Documents', path: '/documents' },
   { icon: Settings, label: 'Settings', path: '/settings' },
 ];
 

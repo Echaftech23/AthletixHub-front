@@ -33,10 +33,7 @@ export function Modal({
     description: "",
     date: new Date(),
     time: "",
-    address: {
-      venue: "",
-      location: "",
-    },
+    address: "",
     price: 0,
     capacity: 0,
     imageUrl: "",
@@ -45,7 +42,26 @@ export function Modal({
 
   const handleSubmit = async (values: EventDto) => {
     try {
-      const newEvent = await createEvent(values);
+      // Create FormData to handle file upload
+      const formData = new FormData();
+  
+      // Append all event fields to FormData
+      Object.keys(values).forEach(key => {
+        if (key === 'date') {
+          // Convert date to string for FormData
+          formData.append(key, new Date(values.date).toISOString().split('T')[0]);
+        } else if (key !== 'imageUrl' && key !== 'id') {
+          formData.append(key, values[key].toString());
+        }
+      });
+  
+      // Handle file upload
+      const fileInput = document.querySelector('input[name="imageUrl"]') as HTMLInputElement;
+      if (fileInput && fileInput.files && fileInput.files.length > 0) {
+        formData.append('file', fileInput.files[0]);
+      }
+  
+      const newEvent = await createEvent(formData);
       onEventCreated(newEvent);
       setIsOpen(false);
       toast.success("Event created successfully!");
@@ -187,49 +203,26 @@ export function Modal({
                       </div>
                     </div>
 
-                    {/* Venue Input */}
+                    {/* Address Input */}
                     <div>
                       <Input
                         type="text"
-                        name="address.venue"
-                        placeholder="Event Venue"
-                        value={values.address.venue}
+                        name="address"
+                        placeholder="Event Address"
+                        value={values.address}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         className={`w-full ${
-                          touched.address?.venue && errors.address?.venue
+                          touched.address && errors.address
                             ? "border-red-500"
                             : ""
                         }`}
                       />
-                      {touched.address?.venue && errors.address?.venue && (
+                      {touched.address && errors.address && (
                         <p className="text-red-500 text-sm mt-1">
-                          {errors.address.venue}
+                          {errors.address}
                         </p>
                       )}
-                    </div>
-
-                    {/* Location Input */}
-                    <div>
-                      <Input
-                        type="text"
-                        name="address.location"
-                        placeholder="Event Location"
-                        value={values.address.location}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={`w-full ${
-                          touched.address?.location && errors.address?.location
-                            ? "border-red-500"
-                            : ""
-                        }`}
-                      />
-                      {touched.address?.location &&
-                        errors.address?.location && (
-                          <p className="text-red-500 text-sm mt-1">
-                            {errors.address.location}
-                          </p>
-                        )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">

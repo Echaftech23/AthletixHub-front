@@ -18,14 +18,9 @@ export const eventValidationSchema = Yup.object().shape({
   time: Yup.string()
     .required('Event time is required'),
   
-  address: Yup.object().shape({
-    venue: Yup.string()
-      .required('Venue is required')
-      .min(3, 'Venue must be at least 3 characters'),
-    location: Yup.string()
-      .required('Location is required')
-      .min(3, 'Location must be at least 3 characters'),
-  }),
+  address: Yup.string()
+      .required('address is required')
+      .min(3, 'address must be at least 3 characters'),
   
   price: Yup.number()
     .required('Price is required')

@@ -45,10 +45,7 @@ export interface EventDto {
   description: string;
   date: string;
   time: string;
-  address: {
-    venue: string;
-    location: string;
-  };
+  address: string;
   price: number;
   capacity: number;
   imageUrl: string;

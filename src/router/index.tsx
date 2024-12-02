@@ -8,6 +8,7 @@ const AuthGuard = lazy(() => import("@/guards/AuthGuard"));
 const DashboardPage = lazy(() => import("@/pages/organiser"));
 const Events = lazy(() => import("@/pages/organiser/events"));
 const Participants = lazy(() => import("@/pages/organiser/participants"));
+const EventDetails = lazy(() => import("@/pages/organiser/events/details"));
 
 const AppRouter = () => (
   <Router>
@@ -23,7 +24,9 @@ const AppRouter = () => (
         //Protected routes
         <Route path="/dashboard" element={<AuthGuard><DashboardPage /></AuthGuard>}/>
         <Route path="/events" element={<AuthGuard><Events /></AuthGuard>}/>
+        <Route path="/events/:eventId" element={<AuthGuard><EventDetails /></AuthGuard>} />
         <Route path="/participants" element={<AuthGuard><Participants /></AuthGuard>}/>
+        <Route path="*" element={<LoginPage />} />
       </Routes>
     </Suspense>
   </Router>

@@ -57,12 +57,12 @@ export function EventCard({
 
   return (
     <>
-      <Card className="overflow-hidden rounded-md">
+      <Card className="overflow-hidden rounded-md cursor-pointer" onClick={() => window.location.href = `/events/${event._id}`}>
         <div className="relative">
           <img
-            src={event.imageUrl}
-            alt={event.title}
-            className="w-full h-48 object-cover"
+        src={event.imageUrl}
+        alt={event.title}
+        className="w-full h-48 object-cover"
           />
         </div>
 
@@ -70,37 +70,43 @@ export function EventCard({
           <p className="text-sm text-gray-600 mb-4">{event.title}</p>
 
           <div className="space-y-2">
-            <div className="flex items-center text-sm text-gray-600">
-              <Calendar className="w-4 h-4 mr-2" />
-              <span>{formatDate(event.date)}</span>
-              <Clock className="w-4 h-4 ml-4 mr-2" />
-              <span>{event.time}</span>
-            </div>
+        <div className="flex items-center text-sm text-gray-600">
+          <Calendar className="w-4 h-4 mr-2" />
+          <span>{formatDate(event.date)}</span>
+          <Clock className="w-4 h-4 ml-4 mr-2" />
+          <span>{event.time}</span>
+        </div>
 
-            <div className="flex items-center text-sm text-gray-600">
-              <MapPin className="w-4 h-4 mr-2" />
-              <span>
-                {event.address.venue}, {event.address.location}
-              </span>
-            </div>
+        <div className="flex items-center text-sm text-gray-600">
+          <MapPin className="w-4 h-4 mr-2" />
+          <span>
+            {event.address}
+          </span>
+        </div>
           </div>
 
           <div className="mt-4 space-y-3">
-            <div className="flex space-x-3">
-              <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="w-full py-2 px-4 bg-green-300 font-semibold rounded-sm hover:bg-green-400"
-              >
-                Edit Event
-              </button>
+        <div className="flex space-x-3">
+          <button
+            onClick={(e) => {
+          e.stopPropagation();
+          setIsEditModalOpen(true);
+            }}
+            className="w-full py-2 px-4 bg-green-300 font-semibold rounded-sm hover:bg-green-400"
+          >
+            Edit Event
+          </button>
 
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="w-full py-2 px-4 bg-primary text-white rounded-sm hover:bg-primary/90"
-              >
-                Delete Event
-              </button>
-            </div>
+          <button
+            onClick={(e) => {
+          e.stopPropagation();
+          setIsModalOpen(true);
+            }}
+            className="w-full py-2 px-4 bg-primary text-white rounded-sm hover:bg-primary/90"
+          >
+            Delete Event
+          </button>
+        </div>
           </div>
         </div>
       </Card>

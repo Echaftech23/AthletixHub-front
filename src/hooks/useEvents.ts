@@ -8,7 +8,7 @@ export interface EventResponse extends EventDto {
 }
 
 export interface EventService {
-  createEvent: (eventData: EventDto) => Promise<EventResponse>;
+  createEvent: (eventData: FormData) => Promise<EventResponse>;
   getEvents: () => Promise<{ events: EventResponse[] }>;
   getEventById: (id: string) => Promise<EventResponse>;
   updateEvent: (id: string, eventData: Partial<EventDto>) => Promise<EventResponse>;
@@ -17,9 +17,18 @@ export interface EventService {
 
 export const useEvents = (): EventService => {
 
-  const createEvent = async (eventData: EventDto): Promise<EventResponse> => {
-    const response = await axiosInstance.post<EventResponse>('/events', eventData);
-    return response.data;
+  const createEvent = async (eventData: FormData): Promise<EventResponse>  => {
+    try {
+      const response = await axiosInstance.post<EventResponse>('/events', eventData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error creating event:", error);
+      throw error;
+    }
   };
 
   const getEvents = async (): Promise<{ events: EventResponse[] }> => {

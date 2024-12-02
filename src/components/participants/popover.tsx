@@ -80,7 +80,7 @@ export function Modal({
       );
 
       toast.error(
-        `Failed to create Participant: ${error.message || "Unknown error"}`
+        `Failed to create Participant: ${error.response?.data?.message?.message}`
       );
     } finally {
       setSubmitting(false);

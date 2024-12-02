@@ -30,10 +30,11 @@ export const EditEventModal: React.FC<EditEventModalProps> = ({
     description: event.description,
     date: event.date,
     time: event.time,
-    address: {
-      venue: event.address.venue,
-      location: event.address.location,
-    },
+    // address: {
+    //   venue: event.address.venue,
+    //   location: event.address.location,
+    // },
+    address: event.address,
     price: event.price,
     capacity: event.capacity,
     imageUrl: event.imageUrl ,
@@ -164,49 +165,27 @@ export const EditEventModal: React.FC<EditEventModalProps> = ({
                   </div>
                 </div>
 
-                {/* Venue Input */}
+                {/* Address Input */}
                 <div>
-                  <Input
-                    type="text"
-                    name="address.venue"
-                    placeholder="Event Venue"
-                    value={values.address.venue}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`w-full ${
-                      touched.address?.venue && errors.address?.venue
-                        ? "border-red-500"
-                        : ""
-                    }`}
-                  />
-                  {touched.address?.venue && errors.address?.venue && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.address.venue}
-                    </p>
-                  )}
-                </div>
-
-                {/* Location Input */}
-                <div>
-                  <Input
-                    type="text"
-                    name="address.location"
-                    placeholder="Event Location"
-                    value={values.address.location}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`w-full ${
-                      touched.address?.location && errors.address?.location
-                        ? "border-red-500"
-                        : ""
-                    }`}
-                  />
-                  {touched.address?.location && errors.address?.location && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.address.location}
-                    </p>
-                  )}
-                </div>
+                      <Input
+                        type="text"
+                        name="address"
+                        placeholder="Event Address"
+                        value={values.address}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={`w-full ${
+                          touched.address && errors.address
+                            ? "border-red-500"
+                            : ""
+                        }`}
+                      />
+                      {touched.address && errors.address && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.address}
+                        </p>
+                      )}
+                    </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   {/* Price Input */}
