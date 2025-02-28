@@ -1,6 +1,6 @@
-# SportFit Frontend
+# AthletixHub Frontend
 
-This project is the frontend for the SportFit application, built with React, TypeScript, and Vite. It includes various features such as authentication, event management, participant management, and more.
+This project is the frontend for the AthletixHub application, built with React, TypeScript, and Vite. It includes various features such as authentication, event management, participant management, and more.
 
 ## Table of Contents
 
@@ -46,8 +46,8 @@ This project is the frontend for the SportFit application, built with React, Typ
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Echaftech23/SportFit-back.git
-   cd sportfit-frontend
+   git clone https://github.com/Echaftech23/AthletixHub-back.git
+   cd AthletixHub-frontend
    ```
 
 2. Install dependencies:
@@ -92,7 +92,7 @@ npm run lint:fix
 ## 📂 Project Structure
 
 ```
-sportfit-frontend/
+AthletixHub-frontend/
 ├── public/                 # Static assets
 ├── src/
 │   ├── api/                # API configuration and calls
@@ -143,13 +143,13 @@ export default tseslint.config({
 ### Build Docker Image
 
 ```sh
-docker build -t sportfit-frontend:latest .
+docker build -t AthletixHub-frontend:latest .
 ```
 
 ### Run Docker Container
 
 ```sh
-docker run -d -p 5173:80 sportfit-frontend:latest
+docker run -d -p 5173:80 AthletixHub-frontend:latest
 ```
 
 ## 🚧 Future Roadmap
